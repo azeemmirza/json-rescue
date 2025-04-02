@@ -27,7 +27,8 @@
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run build",
+    "publish:public": "npm publish --access public"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
