@@ -1,0 +1,38 @@
+{
+  "name": "json-rescue",
+  "version": "0.0.1",
+  "description": "Rescue valid JSON from messy text by extracting candidates, applying safe repairs, and returning a parsed result with a transparent repair report.",
+  "keywords": [
+    "json",
+    "parsing",
+    "repair",
+    "typescript"
+  ],
+  "homepage": "https://github.com/azeemmirza/json-rescue#readme",
+  "bugs": {
+    "url": "https://github.com/azeemmirza/json-rescue/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azeemmirza/json-rescue.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Azeem Mirza",
+    "url": "https://azeemmirza.co"
+  },
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
+  }
+}
