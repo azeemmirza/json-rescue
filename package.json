@@ -22,7 +22,14 @@
     "url": "https://azeemmirza.co"
   },
   "type": "commonjs",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "jest",
@@ -31,18 +38,27 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
+    "prepare": "husky install",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
     "prepublishOnly": "npm run build && npm run lint && npm run test",
     "publish:public": "npm publish --access public"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@eslint/js": "^10.0.1",
+    "@release-it/conventional-changelog": "^10.0.5",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
     "@typescript-eslint/parser": "^8.56.0",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
     "jest": "^30.2.0",
+    "release-it": "^19.2.4",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.0"

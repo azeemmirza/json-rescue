@@ -1,0 +1,31 @@
+{
+  "git": {
+    "commit": true,
+    "tag": true,
+    "push": true,
+    "requireCleanWorkingDir": true,
+    "requireUpstream": false,
+    "requireCommits": false,
+    "changelog": "npx auto-changelog --stdout --file-name CHANGELOG.md"
+  },
+  "npm": {
+    "publish": true,
+    "allowSameVersion": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "preset": "conventionalcommits",
+      "strictSemVer": true,
+      "changelogFile": "CHANGELOG.md"
+    }
+  },
+  "github": {
+    "release": true
+  },
+  "hooks": {
+    "before:init": "npm run lint && npm run test",
+    "after:bump": "echo 'Version bumped'",
+    "after:release": "echo 'Released ${name} v${version} to ${repo.repository}'"
+  }
+}
