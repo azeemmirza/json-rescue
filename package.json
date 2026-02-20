@@ -1,6 +1,6 @@
 {
   "name": "json-rescue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Rescue valid JSON from messy text by extracting candidates, applying safe repairs, and returning a parsed result with a transparent repair report.",
   "keywords": [
     "json",
@@ -41,7 +41,7 @@
     "release": "release-it",
     "release:dry": "release-it --dry-run",
     "prepublishOnly": "npm run build && npm run lint && npm run test",
-    "publish:public": "npm publish --access public"
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.2",
