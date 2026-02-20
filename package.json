@@ -1,6 +1,6 @@
 {
   "name": "json-rescue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rescue valid JSON from messy text by extracting candidates, applying safe repairs, and returning a parsed result with a transparent repair report.",
   "keywords": [
     "json",
@@ -38,7 +38,6 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
-    "prepare": "husky install",
     "release": "release-it",
     "release:dry": "release-it --dry-run",
     "prepublishOnly": "npm run build && npm run lint && npm run test",
@@ -56,7 +55,6 @@
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "husky": "^9.1.7",
     "jest": "^30.2.0",
     "release-it": "^19.2.4",
     "ts-jest": "^29.4.6",
