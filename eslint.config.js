@@ -5,13 +5,20 @@ const eslintPluginPrettier = require('eslint-plugin-prettier');
 
 module.exports = [
   {
-    ignores: ['node_modules', 'dist', 'coverage', '*.test.ts'],
+    ignores: [
+      'node_modules',
+      'dist',
+      'coverage',
+      '**/*.test.ts',
+      'src/**/*.test.ts',
+    ],
   },
   js.configs.recommended,
   ...tsEslint.configs.strictTypeChecked,
   prettier,
   {
     files: ['src/**/*.ts'],
+    ignores: ['src/**/*.test.ts'],
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
