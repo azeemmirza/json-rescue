@@ -12,22 +12,24 @@
 | Item | Value |
 |------|-------|
 | Package Name | `json-rescue` |
-| Target Version | 0.1.0 (Initial public release) |
+| Current Version | **1.0.0** (Stable Release) |
 | License | MIT |
 | Dependencies | Zero Dependency |
 | Primary Goal | Recover strict JSON from mixed / malformed text safely |
 
-### 1.2 Current Features (Planned for Initial Releases)
+### 1.2 Current Features (v1.0.0 - Production Ready)
 
 - ✅ Extract JSON from Markdown code blocks (```json … ```)
 - ✅ Extract JSON from plain text using balanced braces / brackets
-- ✅ Auto-repair (trailing commas, comments, smart quotes; more planned)
-- ✅ TypeScript generics support
-- ✅ Multiple JSON extraction (`mode: 'all'`)
+- ✅ Auto-repair (trailing commas, JSONC comments, smart quotes, single quotes, unquoted keys, Python literals)
+- ✅ TypeScript generics support with full type safety
+- ✅ Multiple JSON extraction modes (`first`, `all`, `best`)
 - ✅ Repair report (issues list with codes + metadata)
-- ⏳ Streaming / incremental extraction (planned)
-- ⏳ Field extraction without full parsing (planned)
-- ⏳ Schema validation (explicitly out-of-scope for early versions; optional later)
+- ✅ Candidate scoring and confidence ranking
+- ✅ Convenient API (`rescueJson` and `rescueJsonAll`)
+- ⏳ Streaming / incremental extraction (planned for v1.1)
+- ⏳ Field extraction without full parsing (planned for v1.2)
+- ⏳ Schema validation (planned for v2.0)
 
 ### 1.3 Proposal Background
 
@@ -59,13 +61,13 @@ Typical environments where this breaks:
 
 | Priority | Feature | Importance | Status |
 |----------|---------|------------|--------|
-| 1 | Deterministic extraction from mixed text | ⭐⭐⭐ Highest | ✅ Planned (v0.1.0) |
-| 2 | Repair report with issue codes | ⭐⭐⭐ Highest | ✅ Planned (v0.1.0) |
-| 3 | Safe auto-repair for common defects | ⭐⭐ High | ✅ Planned (v0.1.0 → v0.2.0) |
-| 4 | Multiple JSON extraction (`all`) | ⭐⭐ High | ✅ Planned (v0.1.0/v0.2.0) |
-| 5 | Candidate scoring (`best`) | ⭐⭐ Medium | ✅ Planned (v0.2.0) |
-| 6 | Streaming/incremental parsing | ⭐ Medium | ⏳ Planned (v0.4.0) |
-| 7 | Field extraction API | ⭐ Low | ⏳ Planned (v0.4.0) |
+| 1 | Deterministic extraction from mixed text | ⭐⭐⭐ Highest | ✅ v1.0.0 |
+| 2 | Repair report with issue codes | ⭐⭐⭐ Highest | ✅ v1.0.0 |
+| 3 | Safe auto-repair for common defects | ⭐⭐ High | ✅ v1.0.0 |
+| 4 | Multiple JSON extraction (`all` and `best`) | ⭐⭐ High | ✅ v1.0.0 |
+| 5 | Candidate scoring and best selection | ⭐⭐ Medium | ✅ v1.0.0 |
+| 6 | Streaming/incremental parsing | ⭐ Medium | ⏳ v1.1+ |
+| 7 | Field extraction API | ⭐ Low | ⏳ v1.2+ |
 
 ### 2.3 Expected Benefits
 
@@ -79,32 +81,32 @@ Typical environments where this breaks:
 
 ## 3. Implementation Status
 
-`json-rescue` is designed to ship fast in a staged roadmap, prioritizing the stable core first.
+`json-rescue` is at **v1.0.0** - Production Ready. All core features are complete and stable.
 
-### 3.1 Version Roadmap (Planned)
+### 3.1 Version Roadmap (Completed)
 
 ```text
-v0.1.0 (Core) → v0.2.1 → v0.3.0 → v0.4.0 → v1.0.0
+v0.1.0 (Core) → v0.2.0 → v0.3.0 → v1.0.0 → v1.1.0+
      │            │         │         │         │
      ▼            ▼         ▼         ▼         ▼
- Extract +     Repair     Multi +   Streaming  Stable
- Report        Expansion  Scoring   + Fields   Contract
+ Extract +     Repair     Multi +   Stable    Advanced
+ Report        Expansion  Scoring   Contract  Features
  ```
 
- ## 3.2 Planned Features by Version
+### 3.2 Feature Status by Version
 
 | Version | Feature | Status |
 |--------:|---------|:------|
-| v0.1.0 | Markdown fence extraction | ✅ Planned |
-| v0.1.0 | Balanced brace extraction (string-aware) | ✅ Planned |
-| v0.1.0 | Repairs: trailing commas, JSONC comments, smart quotes | ✅ Planned |
-| v0.1.0 | Repair report (`issues[]`) | ✅ Planned |
-| v0.2.0 | Repairs: single quotes, unquoted keys, Python literals | ⏳ Planned |
-| v0.2.0 | Candidate scoring (mode: `'best'`) | ⏳ Planned |
-| v0.3.0 | `rescueJsonAll()` convenience | ⏳ Planned |
-| v0.4.0 | Streaming / incremental candidate tracking | ⏳ Planned |
-| v0.4.0 | Field extraction (optional, streaming-friendly) | ⏳ Planned |
-| v1.0.0 | Behavior contract + stable issue codes | ⏳ Planned |
+| v0.1.0 | Markdown fence extraction | ✅ v1.0.0 |
+| v0.1.0 | Balanced brace extraction (string-aware) | ✅ v1.0.0 |
+| v0.1.0 | Repairs: trailing commas, JSONC comments, smart quotes | ✅ v1.0.0 |
+| v0.1.0 | Repair report (`issues[]`) | ✅ v1.0.0 |
+| v0.2.0 | Repairs: single quotes, unquoted keys, Python literals | ✅ v1.0.0 |
+| v0.2.0 | Candidate scoring (mode: `'best'`) | ✅ v1.0.0 |
+| v0.3.0 | `rescueJsonAll()` convenience | ✅ v1.0.0 |
+| v1.0.0 | Behavior contract + stable issue codes | ✅ v1.0.0 |
+| v1.1.0 | Streaming / incremental candidate tracking | ⏳ Planned |
+| v1.2.0 | Field extraction (optional, streaming-friendly) | ⏳ Planned |
 
 # License
 `json-rescue` is released under the **MIT License**.

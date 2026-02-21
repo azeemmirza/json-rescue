@@ -27,6 +27,8 @@ export interface RescueResult<T = unknown> {
   raw: string;
   /** The repaired text before parsing */
   repaired: string;
+  /** Score indicating likelihood this is correct JSON (0-1) */
+  score?: number;
 }
 
 /**
@@ -43,8 +45,8 @@ export interface ExtractionCandidate {
  * Options for rescueJson function
  */
 export interface RescueOptions {
-  /** Mode of extraction: 'first' (default) or 'all' */
-  mode?: 'first' | 'all';
+  /** Mode of extraction: 'first' (default), 'all', or 'best' (highest score) */
+  mode?: 'first' | 'all' | 'best';
   /** Whether to attempt auto-repair */
   autoRepair?: boolean;
   /** Custom repair rules */

@@ -45,6 +45,7 @@ export function rescueJson<T = unknown>(
       ],
       raw: '',
       repaired: '',
+      score: 0,
     };
     return mode === 'all' ? [emptyResult] : emptyResult;
   }
@@ -67,8 +68,43 @@ export function rescueJson<T = unknown>(
     return results;
   }
 
-  // Return first successful or first result
+  if (mode === 'best') {
+    // Return the result with the highest score
+    return results.reduce((best, current) => {
+      const bestScore = best.score ?? 0;
+      const currentScore = current.score ?? 0;
+      return currentScore > bestScore ? current : best;
+    });
+  }
+
+  // Return first successful or first result (default 'first' mode)
   return results.find((r) => r.success) || results[0];
+}
+
+/**
+ * Convenience wrapper to get all JSON candidates
+ *
+ * @template T - The expected type of the parsed JSON
+ * @param text - The text containing JSON
+ * @param options - Configuration options (mode is always 'all')
+ * @returns An array of RescueResult
+ *
+ * @example
+ * ```typescript
+ * const results = rescueJsonAll<{ name: string }>(mixedText);
+ * results.forEach(result => {
+ *   if (result.success) {
+ *     console.log(result.data);
+ *   }
+ * });
+ * ```
+ */
+export function rescueJsonAll<T = unknown>(
+  text: string,
+  options: Omit<RescueOptions, 'mode'> = {}
+): RescueResult<T>[] {
+  const results = rescueJson<T>(text, { ...options, mode: 'all' });
+  return Array.isArray(results) ? results : [results];
 }
 
 /**
@@ -80,12 +116,14 @@ function processCandidate<T>(raw: string, shouldRepair: boolean): RescueResult<T
 
   // Try to parse as-is first
   if (isValidJson(raw)) {
+    const score = calculateScore(raw, []);
     return {
       data: JSON.parse(raw) as T,
       success: true,
       issues: [],
       raw,
       repaired: raw,
+      score,
     };
   }
 
@@ -97,12 +135,14 @@ function processCandidate<T>(raw: string, shouldRepair: boolean): RescueResult<T
 
     // Try parsing after repair
     if (isValidJson(repaired)) {
+      const score = calculateScore(repaired, allIssues);
       return {
         data: JSON.parse(repaired) as T,
         success: true,
         issues: allIssues,
         raw,
         repaired,
+        score,
       };
     }
   }
@@ -128,7 +168,36 @@ function processCandidate<T>(raw: string, shouldRepair: boolean): RescueResult<T
     ],
     raw,
     repaired,
+    score: 0,
   };
+}
+
+/**
+ * Calculate a confidence score for the parsed result
+ * Score ranges from 0 to 1, where 1 is perfect (no repairs needed)
+ * and 0 is a parse failure
+ */
+function calculateScore(text: string, issues: RepairIssue[]): number {
+  // Base score is 1.0 (perfect)
+  let score = 1.0;
+
+  // Penalize for each repair issue
+  // Warning issues reduce score by 0.05, error issues reduce by 0.1
+  for (const issue of issues) {
+    if (issue.severity === 'warning') {
+      score -= 0.05;
+    } else {
+      score -= 0.1;
+    }
+  }
+
+  // Penalize for length (longer text might have more issues)
+  // But less significantly
+  const lengthPenalty = Math.log(text.length) / 1000;
+  score -= Math.min(lengthPenalty, 0.1);
+
+  // Ensure score stays in valid range
+  return Math.max(0, Math.min(1, score));
 }
 
 export { RescueResult, RescueOptions, RepairIssue } from './types';
