@@ -19,3 +19,16 @@ export {
   repairUnquotedKeys,
   repairPythonLiterals,
 } from './repair';
+
+// Re-export field extraction utilities (v1.2.0)
+export { extractField, extractFields, fieldExists, getFieldOrDefault } from './fields';
+export type { FieldExtractionResult } from './fields';
+
+// Re-export schema validation utilities (v2.0.0)
+export { validateSchema, createValidationReport } from './schema';
+export type {
+  JsonSchema,
+  SchemaValidationResult,
+  SchemaValidationError,
+  ValidationReport,
+} from './schema';

@@ -1,6 +1,6 @@
 {
   "name": "json-rescue",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Rescue valid JSON from messy text by extracting candidates, applying safe repairs, and returning a parsed result with a transparent repair report.",
   "keywords": [
     "json",
@@ -34,6 +34,9 @@
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "coverage": "jest --coverage && open coverage/index.html",
+    "coverage:report": "jest --coverage --verbose",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",

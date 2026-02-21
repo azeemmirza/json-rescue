@@ -1,5 +1,114 @@
 # Changelog
 
+## [2.0.0](https://github.com/azeemmirza/json-rescue/compare/1.0.0...2.0.0) (2026-02-21)
+
+### ✨ Features
+
+- **Field Extraction API** (v1.2.0 feature, released in v2.0.0)
+  - Extract specific fields from JSON without parsing entire structure
+  - Dot-notation support for nested objects (e.g., `user.profile.name`)
+  - Array index support (e.g., `items.0.id`)
+  - Optional auto-repair for malformed JSON
+  - Functions: `extractField()`, `extractFields()`, `fieldExists()`, `getFieldOrDefault()`
+
+- **Schema Validation** (v2.0.0 core feature)
+  - Comprehensive JSON Schema validation (subset support)
+  - Type validation for all JSON types (object, array, string, number, boolean, null)
+  - Property validation (required fields, type constraints)
+  - String validation (minLength, maxLength, pattern)
+  - Number validation (minimum, maximum, enum)
+  - Array item validation with recursive support
+  - Detailed error reporting with field paths
+  - Validation report combining repair and schema errors
+  - Functions: `validateSchema()`, `createValidationReport()`
+
+### 🔧 Technical Improvements
+
+- **New Modules**: `fields.ts` and `schema.ts` for advanced features
+- **Enhanced Type System**: Added `JsonSchema`, `SchemaValidationResult`, `FieldExtractionResult` types
+- **Improved Error Reporting**: Detailed validation errors with paths and expected/actual values
+- **Backward Compatibility**: All v1.0.0 APIs remain unchanged and fully compatible
+- **Type Safety**: Full TypeScript support with no `any` types in public APIs
+
+### 📊 Test Coverage
+
+- **Total Tests**: 122 (up from 94)
+- **Test Suites**: 6/6 passing ✅
+- **Field Extraction Tests**: 14 new tests
+- **Schema Validation Tests**: 14 new tests
+- **All Existing Tests**: Still passing ✅
+
+### 📝 New Documentation
+
+- JSDoc comments for all new field extraction functions
+- JSDoc comments for all schema validation functions
+- Comprehensive examples for field extraction
+- Comprehensive examples for schema validation
+- Type definitions for all new interfaces
+
+### ✅ v2.0.0 Release Checklist
+
+- [x] Field extraction API (v1.2.0)
+- [x] Schema validation (v2.0.0)
+- [x] Comprehensive test coverage
+- [x] Type-safe implementations
+- [x] Backward compatibility with v1.0.0
+- [x] Zero breaking changes
+- [x] Extended type definitions
+- [x] Production-ready error handling
+
+### 🚀 What's New
+
+**Field Extraction:**
+```typescript
+import { extractField, fieldExists, getFieldOrDefault } from 'json-rescue';
+
+// Extract a specific field
+const result = extractField<string>(jsonText, 'user.name');
+if (result.success) {
+  console.log(result.value);
+}
+
+// Check if field exists
+if (fieldExists(jsonText, 'user.email')) {
+  console.log('Email field found');
+}
+
+// Get with default fallback
+const name = getFieldOrDefault(jsonText, 'user.name', 'Unknown');
+```
+
+**Schema Validation:**
+```typescript
+import { validateSchema } from 'json-rescue';
+
+const schema = {
+  type: 'object',
+  required: ['id', 'name'],
+  properties: {
+    id: { type: 'number', minimum: 1 },
+    name: { type: 'string', minLength: 1 }
+  }
+};
+
+const result = validateSchema(data, schema);
+if (!result.valid) {
+  console.log(result.errors);
+}
+```
+
+### 🎯 Production Ready
+
+v2.0.0 is production-ready with:
+- Stable API for all features
+- Comprehensive error handling
+- Full TypeScript support
+- Extensive test coverage (122 tests)
+- Zero breaking changes from v1.0.0
+- Optional features don't impact core functionality
+
+---
+
 ## [1.0.0](https://github.com/azeemmirza/json-rescue/compare/0.2.2...1.0.0) (2026-02-20)
 
 ### ✨ Features
