@@ -1,6 +1,6 @@
 {
   "name": "json-rescue",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Rescue valid JSON from messy text by extracting candidates, applying safe repairs, and returning a parsed result with a transparent repair report.",
   "keywords": [
     "json",
